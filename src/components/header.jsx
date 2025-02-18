@@ -49,7 +49,7 @@ const Header = () => {
                 <span>Interview Prep</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
+              
             </DropdownMenuContent>
           </DropdownMenu>
           </SignedIn>
