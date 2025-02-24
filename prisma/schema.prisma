@@ -87,7 +87,7 @@ enum DemandLevel {
   LOW
 }
 
-enum MarketOutlook{
+enum MarketOutlook {
   POSITIVE 
   NEUTRAL
   NEGATIVE
