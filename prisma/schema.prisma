@@ -24,6 +24,7 @@ model User {
   assessments   Assessment[]
   resume        Resume?
   coverLetter   CoverLetter[]
+  
 }
 
 model Assessment {
@@ -91,4 +92,10 @@ enum MarketOutlook {
   POSITIVE 
   NEUTRAL
   NEGATIVE
+}
+
+enum Level {
+  Beginner
+  Intermediate
+  Advanced
 }

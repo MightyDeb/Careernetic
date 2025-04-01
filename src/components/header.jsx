@@ -13,7 +13,7 @@ const Header = async() => {
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className='container mx-auto px-4 h-16 flex items-center justify-between'>
         <Link href='/'>
-          <Image src="/logo.png" alt="Logo" width={400} height={60} className='h-12 py-1 w-auto object-contain'></Image>
+          
         </Link>
         <div className='flex items-center space-x-2 md:space-x-4'>
           <SignedIn>
@@ -23,7 +23,48 @@ const Header = async() => {
                 <span className='hidden md:block'>Industry Insights</span>
               </Button>
             </Link>
-          
+            <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button>
+                <StarsIcon className='h-4 w-4'/>
+                <span className='hidden md:block'>Utilities</span>
+                <ChevronDown className='h-4 w-4'/>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <Link href={"/onboarding"} className='flex items-center gap-2'>
+                <FileText className='h-4 w-4'/>
+                <span>Change Career</span>
+                </Link>
+              </DropdownMenuItem>
+              
+              <DropdownMenuItem>
+                <Link href={"/news"} className='flex items-center gap-2'>
+                <FileText className='h-4 w-4'/>
+                <span>Market Vacancies</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={"/careers"} className='flex items-center gap-2'>
+                <FileText className='h-4 w-4'/>
+                <span>Other Careers</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={"/assistant"} className='flex items-center gap-2'>
+                <FileText className='h-4 w-4'/>
+                <span>Career Assistant</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href={"/courses"} className='flex items-center gap-2'>
+                <FileText className='h-4 w-4'/>
+                <span>Buy Courses</span>
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button>
@@ -51,7 +92,12 @@ const Header = async() => {
                 <span>Interview Prep</span>
                 </Link>
               </DropdownMenuItem>
-              
+              <DropdownMenuItem>
+               <Link href={"/my-courses"} className='flex items-center gap-2'>
+                <PenBox className='h-4 w-4'/>
+                <span>My Courses</span>
+               </Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           </SignedIn>

@@ -5,6 +5,10 @@ import PerformanceChart from './_components/performance-chart';
 import QuizList from './_components/quiz-list';
 
 const InterviewPage = async() => {
+  const {isOnboarded}=await getUserOnboardingStatus()
+    if(!isOnboarded){
+      redirect("/onboarding")
+    }
   const assessments = await getAssessments();
   return (
     <div>

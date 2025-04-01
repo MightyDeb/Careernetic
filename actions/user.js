@@ -26,10 +26,10 @@ export async function updateUser(data){
           }
         })
         if(!industryInsight){
-          const insights= await generateAIInsights(data.industry);
+          const insights= await generateAIInsights(data?.industry);
           industryInsight= await db.industryInsight.create({
             data:{
-              industry: data.industry,
+              industry: data?.industry,
               ...insights,
               nextUpdate: new Date(Date.now()+ 7*24*60*60*1000)
             }
@@ -40,7 +40,7 @@ export async function updateUser(data){
             id: user.id
           },
           data: {
-            industry: data.industry,
+            industry: data?.industry,
             experience: data.experience,
             bio: data.bio,
             skills: data.skills

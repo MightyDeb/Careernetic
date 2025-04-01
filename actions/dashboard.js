@@ -10,6 +10,9 @@ const model= genAI.getGenerativeModel({
 })
 
 export const generateAIInsights= async(industry)=>{
+  if (industry) {
+    
+  
   const prompt = `
           Analyze the current state of the ${industry} industry and provide insights in ONLY the following JSON format without any additional notes or explanations:
           {
@@ -34,8 +37,9 @@ export const generateAIInsights= async(industry)=>{
   const response = result.response;
   const text = response.text();
   const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
-
+    
   return JSON.parse(cleanedText);
+  }
 }
 
 export async function getIndustryInsights(){
@@ -54,7 +58,7 @@ export async function getIndustryInsights(){
   if(!user){
     throw new Error("User not found")
   }
-  if(!user.industryInsight){
+  if(!user?.industryInsight){
     const insights= await generateAIInsights(user.industry);
     const industryInsight= await db.industryInsight.create({
       data:{
@@ -67,3 +71,17 @@ export async function getIndustryInsights(){
   }
   return user.industryInsight
 }
+
+export async function getIndustryInsight(industry){
+  
+    const insights= await generateAIInsights(industry);
+    
+    return {
+      industry: industry,
+      ...insights,
+      lastUpdated: new Date(Date.now()),
+      nextUpdate: new Date(Date.now()+ 7*24*60*60*1000)
+    }
+}
+
+
