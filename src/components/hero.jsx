@@ -45,7 +45,7 @@ const HeroSection = () => {
             <div className="bg">
               <div className="bg-inner"></div>
             </div>
-            <div className="text">Hover Me</div>
+            <div className="text">Get Started</div>
           </button>
           </Link>
         </div>
