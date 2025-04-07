@@ -4,6 +4,8 @@ CREATE TYPE "DemandLevel" AS ENUM ('HIGH', 'MEDIUM', 'LOW');
 -- CreateEnum
 CREATE TYPE "MarketOutlook" AS ENUM ('POSITIVE', 'NEUTRAL', 'NEGATIVE');
 
+CREATE TYPE "Level" AS ENUM ('Beginner', 'Intermediate', 'Advanced');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -77,6 +79,19 @@ CREATE TABLE "IndustryInsight" (
     CONSTRAINT "IndustryInsight_pkey" PRIMARY KEY ("id")
 );
 
+CREATE TABLE "Courses" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "level" "Level" NOT NULL,
+    "duration" DOUBLE PRECISION NOT NULL,
+    "topics" TEXT[],
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Courses_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_clerkUserId_key" ON "User"("clerkUserId");
 
@@ -98,6 +113,8 @@ CREATE UNIQUE INDEX "IndustryInsight_industry_key" ON "IndustryInsight"("industr
 -- CreateIndex
 CREATE INDEX "IndustryInsight_industry_idx" ON "IndustryInsight"("industry");
 
+CREATE INDEX "Courses_userId_idx" ON "Courses"("userId");
+
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_industry_fkey" FOREIGN KEY ("industry") REFERENCES "IndustryInsight"("industry") ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -109,3 +126,5 @@ ALTER TABLE "Resume" ADD CONSTRAINT "Resume_userId_fkey" FOREIGN KEY ("userId") 
 
 -- AddForeignKey
 ALTER TABLE "CoverLetter" ADD CONSTRAINT "CoverLetter_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE "Courses" ADD CONSTRAINT "Courses_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

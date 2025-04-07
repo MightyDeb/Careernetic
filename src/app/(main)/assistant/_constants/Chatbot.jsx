@@ -1,59 +1,70 @@
-"use client";  // ✅ Ensures it's a Client Component
+'use client'
 
-import { useState } from "react";
+// ATSResumeUpload.jsx
+import React, { useState } from "react";
+import ATShandler from "../../../../../actions/ats";
 
-export default function ChatBot() {
-    const [messages, setMessages] = useState([]);
-    const [input, setInput] = useState("");
-    const [loading, setLoading] = useState(false);
+const ATSResumeUpload = ({data}) => {
+  const [file, setFile] = useState(null);
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-    const sendMessage = () => {
-        if (!input.trim()) return;
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
-        const userMessage = { role: "user", text: input };
-        setMessages((prev) => [...prev, userMessage]);
-        setLoading(true);
-        setInput("");
+  const handleUpload = async () => {
+    if (!file) return;
+    setLoading(true);
 
-        fetch("/api/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: input }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("API Response:", data);
-                const botMessage = { role: "bot", text: data.response };
-                setMessages((prev) => [...prev, botMessage]);
-            })
-            .catch((err) => console.error("Error:", err))
-            .finally(() => setLoading(false));
-    };
+    try {
+      // Convert file to base64 or plain text to send to Gemini
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const fileContent = reader.result;
+        console.log(fileContent)
+        const prompt = `
+You are an skilled ATS (Applicant Tracking System) scanner with a deep understanding of data science, ${data}, Data Analyst and deep ATS functionality, 
+your task is to evaluate the resume based on recent market trends of ${data}. give me the percentage of match if the resume fits with the job profile of ${data}. First the output should come as percentage and then keywords missing and last final thoughts.  Please share your professional evaluation on whether the candidate's profile aligns with the role. Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements of software.
+Resume Content:
+${fileContent}
+Format the response as a single paragraph without any additional text or explanations.
+        `;
 
-    return (
-        <div className="max-w-lg mx-auto p-4 bg-gray-100 rounded-lg shadow-md">
-            <h2 className="text-xl font-bold mb-3">Gemini AI Chatbot</h2>
-            <div className="h-64 overflow-y-auto border p-3 bg-white rounded-lg">
-                {messages.map((msg, index) => (
-                    <p key={index} className={msg.role === "user" ? "text-right text-blue-600" : "text-left text-gray-800"}>
-                        <strong>{msg.role === "user" ? "You: " : "Bot: "}</strong> {msg.text}
-                    </p>
-                ))}
-                {loading && <p className="text-gray-500">Thinking...</p>}
-            </div>
-            <div className="flex mt-3">
-                <input
-                    type="text"
-                    className="flex-grow p-2 border rounded-l-lg"
-                    placeholder="Type your message..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                />
-                <button onClick={sendMessage} className="bg-blue-500 text-white px-4 py-2 rounded-r-lg">
-                    Send
-                </button>
-            </div>
+        const res = await ATShandler({prompt})
+        
+        setResult(res);
+      };
+
+      reader.readAsText(file); // You can also parse PDF with pdf.js if needed
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="p-6 rounded-xl shadow-md bg-white max-w-md mx-auto mt-10 text-black">
+      <h1 className="text-xl text-black font-bold mb-4">Upload Your Resume</h1>
+      <input type="file" onChange={handleFileChange} className="mb-4" />
+      <button
+        onClick={handleUpload}
+        disabled={!file || loading}
+        className="bg-blue-600 text-black px-4 py-2 rounded"
+      >
+        {loading ? "Analyzing..." : "Analyze Resume"}
+      </button>
+
+      {result && (
+        <div className="mt-6 whitespace-pre-wrap bg-gray-100 p-4 rounded">
+          <progress value={parseInt(result[0]+result[1])} max="100"></progress>
+          <h2 className="font-semibold mb-2">Extracted Info:</h2>
+          {result}
         </div>
-    );
-}
+      )}
+    </div>
+  );
+};
+
+export default ATSResumeUpload;

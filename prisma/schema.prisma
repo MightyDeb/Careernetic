@@ -24,7 +24,7 @@ model User {
   assessments   Assessment[]
   resume        Resume?
   coverLetter   CoverLetter[]
-  
+  courses       Courses[]
 }
 
 model Assessment {
@@ -98,4 +98,19 @@ enum Level {
   Beginner
   Intermediate
   Advanced
+}
+
+
+model Courses{
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  title         String  
+  description   String 
+  level         Level  
+  duration      Float
+  topics        String[]
+  createdAt     DateTime  @default(now())
+
+  @@index([userId])
 }

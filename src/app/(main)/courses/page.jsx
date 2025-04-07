@@ -13,10 +13,9 @@ const Courses = async () => {
     }
   })
   const data= await generateCourseInsights(user.industry)
-  
   return (
     <div>
-      <CoursesList data={data}/>
+      <CoursesList data={data} />
     </div>
   )
 }

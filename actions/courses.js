@@ -44,3 +44,31 @@ export const generateCourseInsights= async(industry)=>{
   return JSON.parse(cleanedText);
   }
 }
+
+export const addCourse= async(course)=>{
+  if(course){
+    const prompt = `
+          Generate a course on ${course.title} and the course description being ${course.description}. Suggest related topics to study and create a proper flow for ${course.level} level of students ONLY the following Array of JSON format without any additional notes or explanations:
+          {
+            "heading": string,
+            "introduction": string,
+            "link": string
+          }
+            IMPORTANT: Return ONLY the Array of JSON. No additional text, notes, or markdown formatting.
+          There should be atleast four array elements, each array showing the levels in which you should proceed with the course. 
+          The heading should contain a catchy caption describing about the level. 
+          The introduction is a short paragraph of 15-20 words about the heading and relevant topics. The link should consist of a weblink that has vast information about the heading.         
+        `;
+        const result = await model.generateContent(prompt);
+  const response = result.response;
+  
+  const text = response.text();
+  console.log(text);
+  const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
+    
+  return JSON.parse(cleanedText);
+  }
+}
+
+
+
