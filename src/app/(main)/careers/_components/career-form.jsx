@@ -73,12 +73,8 @@ const CareerForm = ({industries}) => {
               </Select>
               
             </div>}
-            <Button className="w-full mt-3" onClick={onSubmit}>
-              
-                
+            <Button className="w-full font-sans text-lg mt-3 hover:translate-y-2" onClick={onSubmit}>  
                 Search
-                
-             
             </Button>
           
         </CardContent>

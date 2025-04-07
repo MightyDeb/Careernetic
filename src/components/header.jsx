@@ -1,9 +1,10 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
+import Logo from '../../public/Careernetic.png'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
-import { ChevronDown, FileText, GraduationCap, LayoutDashboard, PenBox, StarsIcon } from 'lucide-react'
+import { Bot, ChevronDown, FileText, GraduationCap, LayoutDashboard, NotebookPen, PenBox, Settings, SlidersHorizontal, StarsIcon, Store, Target } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { checkUser } from '@/lib/checkUser'
 
@@ -13,7 +14,7 @@ const Header = async() => {
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className='container mx-auto px-4 h-16 flex items-center justify-between'>
         <Link href='/'>
-          
+          <Image src={Logo} className='h-10 w-10'/>
         </Link>
         <div className='flex items-center space-x-2 md:space-x-4'>
           <SignedIn>
@@ -26,7 +27,7 @@ const Header = async() => {
             <DropdownMenu>
             <DropdownMenuTrigger>
               <Button>
-                <StarsIcon className='h-4 w-4'/>
+                <Settings className='h-4 w-4'/>
                 <span className='hidden md:block'>Utilities</span>
                 <ChevronDown className='h-4 w-4'/>
               </Button>
@@ -34,33 +35,33 @@ const Header = async() => {
             <DropdownMenuContent>
               <DropdownMenuItem>
                 <Link href={"/onboarding"} className='flex items-center gap-2'>
-                <FileText className='h-4 w-4'/>
+                <Target className='h-4 w-4'/>
                 <span>Change Career</span>
                 </Link>
               </DropdownMenuItem>
               
               <DropdownMenuItem>
                 <Link href={"/news"} className='flex items-center gap-2'>
-                <FileText className='h-4 w-4'/>
+                <Store className='h-4 w-4'/>
                 <span>Market Vacancies</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href={"/careers"} className='flex items-center gap-2'>
-                <FileText className='h-4 w-4'/>
+                <SlidersHorizontal className='h-4 w-4'/>
                 <span>Other Careers</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href={"/assistant"} className='flex items-center gap-2'>
-                <FileText className='h-4 w-4'/>
+                <Bot className='h-4 w-4'/>
                 <span>Career Assistant</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href={"/courses"} className='flex items-center gap-2'>
-                <FileText className='h-4 w-4'/>
-                <span>Buy Courses</span>
+                <NotebookPen className='h-4 w-4'/>
+                <span>View Courses</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -92,12 +93,6 @@ const Header = async() => {
                 <span>Interview Prep</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-               <Link href={"/my-courses"} className='flex items-center gap-2'>
-                <PenBox className='h-4 w-4'/>
-                <span>My Courses</span>
-               </Link>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           </SignedIn>
@@ -114,7 +109,7 @@ const Header = async() => {
                 userButtonPopoverCard:"shadow-xl",
                 userPreviewMainIdentifier:"font-semibold",
               }
-            }} afterSignOutUrl='/'/>
+            }}/>
           </SignedIn>
         </div>
       </nav>

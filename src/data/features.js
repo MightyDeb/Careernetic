@@ -17,7 +17,7 @@ export const features = [
     icon: <LineChart className="w-10 h-10 mb-4 text-primary" />,
     title: "Industry Insights",
     description:
-      "Stay ahead with real-time industry trends, salary data, and market analysis.",
+      "Stay ahead with real-time industry trends, salary data, and market analysis and vacancies and news.",
   },
   {
     icon: <ScrollText className="w-10 h-10 mb-4 text-primary" />,

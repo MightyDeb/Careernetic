@@ -1,16 +1,13 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-
-
+import {useState } from "react";
 
 export default function NewsSection({data}) {
   const [rand,setRand]= useState(Math.floor(Math.random() * (data.length-9)));
   const changeRand=()=>{
     setRand(Math.floor(Math.random() * (data.length-9)))
   }
-
   return (
     <div className=" flex flex-col gap-6 items-center">
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -38,7 +35,7 @@ export default function NewsSection({data}) {
               )
           )}
         </div>
-        <Button onClick={changeRand} className="w-fit">Refetch News</Button>
+        <Button onClick={changeRand} className="w-fit bg-slate-300 hover:scale-105 hover:border-b-4">Refetch News</Button>
     </div>
   );
 }

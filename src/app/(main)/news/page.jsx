@@ -24,12 +24,16 @@ const News = async () => {
   
   return (
     <div className='flex flex-col'>
-      <div><h1 className="text-2xl font-bold mb-4">Hot News</h1></div>
-      <NewsSection data={data}/>
-      <br/>
-      <br/>
-      <div><h1 className="text-2xl font-bold mb-4">Job Vacancies</h1></div>
+      <div>
+        <h1 className="gradient-title text-4xl mb-3">Job Vacancies</h1>
+      </div>
       <JobSection data={data2}/>
+      <br/>
+      <br/>
+      <div>
+        <h1 className="gradient-title text-4xl mb-3">Hot News</h1>
+      </div>
+      <NewsSection data={data}/> 
     </div>
   )
 }

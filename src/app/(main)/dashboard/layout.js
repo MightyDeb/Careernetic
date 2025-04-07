@@ -10,8 +10,8 @@ const Layout = ({children}) => {
       <div className='flex items-center justify-between mb-5'>
         <h1 className="text-6xl font-bold gradient-title">Industry Insights</h1>
         <Link href={'/'}>
-          <Button>
-            <Home/> Go Home
+          <Button className="bg-slate-300 hidden md:inline-block">
+            <Home/> 
           </Button>
         </Link>
       </div>
