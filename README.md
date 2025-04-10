@@ -17,7 +17,7 @@ and continuously optimize your career path. It is built on seamless UI/UX and re
 - **Interview Preparation and Cover Letters**: Builds cover letter based on your job description according to best practice for job hirings and boosts your interview preparation.
 
 ## Hosted Links:
-[NEXT JS APP]([https://careernetic-odks.vercel.app/]) (hosted on Vercel)
+[NEXT JS APP](https://careernetic-odks.vercel.app/) (hosted on Vercel)
 
 ## Technologies Used:
 ### Front-end:
